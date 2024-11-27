@@ -109,6 +109,9 @@ class Ball(Basic):
 
 
     def alive(self):
-        # ============================================
-        # TODO: Implement a service that returns whether the ball is alive or not
-        pass
+        screen_length = config.display_dimension[1]
+
+        if self.rect.top > screen_length:   # 공이 아래로 빠졌을떄
+            return False  
+        
+        return True  # 공이 빠지지 않았을 때
