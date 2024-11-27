@@ -88,14 +88,26 @@ class Ball(Basic):
         if self.rect.colliderect(paddle.rect):
             self.dir = 360 - self.dir + random.randint(-5, 5)
 
-    def hit_wall(self):
-        # ============================================
-        # TODO: Implement a service that bounces off when the ball hits the wall
-        pass
-        # 좌우 벽 충돌
-        
-        # 상단 벽 충돌
     
+    def hit_wall(self):
+        screen_length, screen_breadth = config.display_dimension
+        hit_increase = 0.1  # 벽 충돌 시 속도 증가량
+
+        # 좌우 벽 충돌 (수평)
+        if self.rect.left <= 0 or self.rect.right >= screen_length:
+            self.dir = (180 - self.dir) % 360  
+            self.speed += hit_increase  
+
+        # 상단 벽 충돌 (수직)
+        if self.rect.top <= 0:
+            self.dir = (360 - self.dir) % 360  
+            self.speed += hit_increase  
+
+        # 공이 너무 빨라지지 않도록 제한
+        max_speed = config.display_dimension[1] / 50
+        self.speed = min(self.speed, max_speed)
+
+
     def alive(self):
         # ============================================
         # TODO: Implement a service that returns whether the ball is alive or not
