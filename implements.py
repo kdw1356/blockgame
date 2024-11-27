@@ -34,9 +34,8 @@ class Block(Basic):
         pygame.draw.rect(surface, self.color, self.rect)
     
     def collide(self):
-        # ============================================
-        # TODO: Implement an event when block collides with a ball
-        pass
+        self.alive = False
+        
 
 
 class Paddle(Basic):
@@ -66,23 +65,53 @@ class Ball(Basic):
         pygame.draw.ellipse(surface, self.color, self.rect)
 
     def collide_block(self, blocks: list):
-        # ============================================
-        # TODO: Implement an event when the ball hits a block
-        pass
+ 
+        def absolute_value(x):
+            return x if x >= 0 else -x
+
+        for block in blocks[:]:
+            if self.rect.colliderect(block.rect):
+                block.collide()  
+                if not block.alive:
+                    blocks.remove(block)   # 블록제거
+
+                # 가로면/세로면 충돌시 계산
+                if absolute_value(self.rect.bottom - block.rect.top) < self.speed or absolute_value(self.rect.top - block.rect.bottom) < self.speed:
+                    self.dir = (360 - self.dir) % 360
+                else:
+                    self.dir = (180 - self.dir) % 360
+                return
+
+
 
     def collide_paddle(self, paddle: Paddle) -> None:
         if self.rect.colliderect(paddle.rect):
             self.dir = 360 - self.dir + random.randint(-5, 5)
 
-    def hit_wall(self):
-        # ============================================
-        # TODO: Implement a service that bounces off when the ball hits the wall
-        pass
-        # 좌우 벽 충돌
-        
-        # 상단 벽 충돌
     
+    def hit_wall(self):
+        screen_length, screen_breadth = config.display_dimension
+        hit_increase = 0.1  # 벽 충돌 시 속도 증가량
+
+        # 좌우 벽 충돌 (수평)
+        if self.rect.left <= 0 or self.rect.right >= screen_length:
+            self.dir = (180 - self.dir) % 360  
+            self.speed += hit_increase  
+
+        # 상단 벽 충돌 (수직)
+        if self.rect.top <= 0:
+            self.dir = (360 - self.dir) % 360  
+            self.speed += hit_increase  
+
+        # 공이 너무 빨라지지 않도록 제한
+        max_speed = config.display_dimension[1] / 50
+        self.speed = min(self.speed, max_speed)
+
+
     def alive(self):
-        # ============================================
-        # TODO: Implement a service that returns whether the ball is alive or not
-        pass
+        screen_length = config.display_dimension[1]
+
+        if self.rect.top > screen_length:   # 공이 아래로 빠졌을떄
+            return False  
+        
+        return True  # 공이 빠지지 않았을 때
