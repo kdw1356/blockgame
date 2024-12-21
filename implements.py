@@ -65,22 +65,25 @@ class Ball(Basic):
         pygame.draw.ellipse(surface, self.color, self.rect)
 
     def collide_block(self, blocks: list):
- 
-        def absolute_value(x):
-            return x if x >= 0 else -x
+
 
         for block in blocks[:]:
-            if self.rect.colliderect(block.rect):
-                block.collide()  
+            if self.rect.colliderect(block.rect[0], block.rect[1], block.rect.width, 1) or self.rect.colliderect(block.rect[0], block.rect[1] + block.rect.height - 1, block.rect.width, 1):
+                self.dir = (360 - self.dir) % 360
+                block.collide()
                 if not block.alive:
-                    blocks.remove(block)   # 블록제거
-
-                # 가로면/세로면 충돌시 계산
-                if absolute_value(self.rect.bottom - block.rect.top) < self.speed or absolute_value(self.rect.top - block.rect.bottom) < self.speed:
-                    self.dir = (360 - self.dir) % 360
-                else:
-                    self.dir = (180 - self.dir) % 360
+                    blocks.remove(block)
                 return
+
+            if self.rect.colliderect(block.rect[0], block.rect[1], 1, block.rect.height) or self.rect.colliderect(block.rect[0] + block.rect.width - 1 , block.rect[1], 1, block.rect.height):
+                self.dir = (180 - self.dir) % 360
+                block.collide()
+                if not block.alive:
+                    blocks.remove(block)
+                return
+            
+
+                
 
 
 
