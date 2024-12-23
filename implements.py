@@ -117,9 +117,11 @@ class Ball(Basic):
 
 
 
-    def collide_paddle(self, paddle: Paddle) -> None:
+    def collide_paddle(self, paddle: Paddle) -> bool:
         if self.rect.colliderect(paddle.rect):
             self.dir = 360 - self.dir + random.randint(-5, 5)
+            return True
+        return False
 
     
     def hit_wall(self):

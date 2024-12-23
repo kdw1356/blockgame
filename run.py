@@ -73,7 +73,10 @@ def tick():
     
     for item in ITEMS:
         item.move()
-
+        if(item.color == config.red_color and item.collide_paddle(paddle)):
+            item.color = config.ball_color
+            BALLS.append(item)
+            ITEMS.remove(item)
 
 def main():
     global life
