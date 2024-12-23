@@ -1,33 +1,22 @@
 BlockGame는 블록을 이용한 간단한 게임 프로젝트입니다. 이 프로젝트는 Python을 기반으로 하며 게임 기능 구현과 설정을 포함합니다.
 
-📂 프로젝트 구조
+주요 기능
 
-├── config.py         # 게임 설정 파일 (변수 및 환경 설정)
-├── implements.py     # 게임 로직 및 기능 구현
-├── run.py            # 게임 실행 파일 (메인 코드)
-└── __pycache__/      # 캐시 파일
+게임 플레이
+공을 튕겨내 블록을 제거하며 점수를 획득합니다.
+일정 확률로 공의 색상이 변경되거나 새로운 공이 생성됩니다.
+공이 바닥으로 떨어지면 목숨이 감소합니다.
 
-  실행 방법
-요구 사항
-Python 3.12+
-실행 단계
-프로젝트를 클론하거나 다운로드합니다. (git clone https://github.com/사용자명/blockgame.git
-cd blockgame-master
+블록
+여러 층의 블록이 있으며, 특정 층의 블록은 여러 번 맞아야 제거됩니다.
+블록 충돌 시 아이템이나 공이 생성될 수 있습니다.
 
+패들
+좌우 키를 사용해 패들을 조작할 수 있습니다.
+패들이 공을 받아내지 못하면 공이 사라지고 목숨이 줄어듭니다.
 
+아이템
+특정 조건에서 생성되는 아이템을 통해 새로운 공이 추가됩니다.(빨간공을 먹으면 공이 추가됨)
 
-Python을 사용해 run.py 파일을 실행합니다 (python run.py)
-
-  ⚙설정
-config.py 파일에서 게임의 설정을 변경할 수 있습니다.
-
-  주요 기능
-게임 설정: config.py에서 다양한 환경 설정을 적용할 수 있습니다.
-게임 로직: implements.py에서 블록 게임의 기능이 구현되어 있습니다.
-실행: run.py로 게임을 실행합니다.
-🤝 기여 방법
-저장소를 포크합니다.
-새로운 브랜치를 만듭니다. (git checkout -b feature-branch)
-변경 사항을 커밋합니다. (git commit -m "Add new feature")
-브랜치를 푸시합니다. (git push origin feature-branch)
-Pull Request를 생성합니다.
+![스크린샷 2024-12-23 211806](https://github.com/user-attachments/assets/7f190421-8319-4fc4-9243-395cf2adc5dd)
+![스크린샷 2024-12-23 211659](https://github.com/user-attachments/assets/1d2761ad-0bbc-456a-9db1-6e1a8ed59f68)
