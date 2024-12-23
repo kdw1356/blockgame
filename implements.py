@@ -74,8 +74,8 @@ class Ball(Basic):
 
     def collide_block(self, blocks: list, surface):
         for block in blocks[:]:
-            if self.rect.colliderect(block.rect[0], block.rect[1], block.rect.width, 1) 
-            or self.rect.colliderect(block.rect[0], block.rect[1] + block.rect.height - 1, block.rect.width, 1):
+            if (self.rect.colliderect(block.rect[0], block.rect[1], block.rect.width, 1)
+            or self.rect.colliderect(block.rect[0], block.rect[1] + block.rect.height - 1, block.rect.width, 1)):
                 self.dir = (360 - self.dir) % 360
                 block.collide()
                 num = random.randint(1,10)
@@ -95,8 +95,8 @@ class Ball(Basic):
                     item.dir = 270
                 return item
 
-            if self.rect.colliderect(block.rect[0], block.rect[1], 1, block.rect.height) 
-            or self.rect.colliderect(block.rect[0] + block.rect.width - 1 , block.rect[1], 1, block.rect.height):
+            if (self.rect.colliderect(block.rect[0], block.rect[1], 1, block.rect.height) 
+            or self.rect.colliderect(block.rect[0] + block.rect.width - 1 , block.rect[1], 1, block.rect.height)):
                 self.dir = (180 - self.dir) % 360
                 block.collide()
                 num = random.randint(1,10)
